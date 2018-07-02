@@ -3,8 +3,8 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Stock information
-      <small>Add, delete, edit or search stock</small>
+      {{pageTitle}}
+      <small>{{pageDesc}}</small>
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -15,8 +15,9 @@
   <!-- Main content -->
   <section class="content container-fluid">
 
-    <app-stock-manage></app-stock-manage>
-
+    <!-- 用路由替换掉固定的表格 -->
+    <!-- <app-stock-manage></app-stock-manage> -->
+    <router-outlet></router-outlet>
 
   </section>
   <!-- /.content -->
