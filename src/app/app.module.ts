@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -13,6 +14,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StockFormComponent } from './stock/stock-form/stock-form.component';
 import { StockService } from './stock/stock.service';
+import { StockFilterPipe } from './stock/stock-filter.pipe';
 
 // 加入路由
 const routeConfig: Routes = [
@@ -34,14 +36,17 @@ const routeConfig: Routes = [
     StockManageComponent,
     DashboardComponent,
     StockFormComponent,
+    StockFilterPipe,
     StarsComponent,
   ],
   // 引入了哪些组件
   imports: [
     BrowserModule,
-    // FormsModule,
+    // FormsModule 是 ReactiveFormsModule 的前提
+    FormsModule,
+    ReactiveFormsModule,
     // HttpModule,
-    RouterModule.forRoot(routeConfig)
+    RouterModule.forRoot(routeConfig),
   ],
   providers: [
     StockService,
