@@ -5,20 +5,20 @@
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    <form class="form-horizontal">
+    <form [formGroup]="formModel" class="form-horizontal">
       <div class="box-body">
         <div class="form-group">
           <label for="name" class="col-sm-2 control-label">股票名称</label>
 
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="name" placeholder="股票名称">
+            <input formControlName="name" type="text" class="form-control" id="name" placeholder="股票名称">
           </div>
         </div>
         <div class="form-group">
           <label for="inputPassword3" class="col-sm-2 control-label">股票价格</label>
 
           <div class="col-sm-10">
-            <input type="number" class="form-control" id="price" placeholder="股票价格">
+            <input formControlName='price' type="number" class="form-control" id="price" placeholder="股票价格">
           </div>
         </div>
         <div class="form-group">
@@ -32,31 +32,17 @@
             <label class="col-sm-2 control-label">股票描述</label>
     
             <div class="col-sm-10">
-                <textarea class="form-control" row="5">{{stock.desc}}</textarea>
+                <textarea formControlName="desc" class="form-control" row="5"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">股票类型</label>
             <div class="col-sm-10">
-                <div class="row">
-                    <div class="col-sm-2">
+                <div class="row" formArrayName="categories">
+                    <div *ngFor='let category of categories; let i = index' class="col-sm-2">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" value="IT"/> IT
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="Cloud"/> Cloud
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="UI"/> UI
+                                <input [formControlName]="i" type="checkbox" value="IT"/> {{category}}
                             </label>
                         </div>
                     </div>
