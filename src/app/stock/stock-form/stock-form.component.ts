@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Stock } from '../stock.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StockService } from '../stock.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-stock-form',
@@ -37,9 +37,20 @@ export class StockFormComponent implements OnInit {
           new FormControl(this.stock.categories.indexOf(this.categories[0]) !== -1),
           new FormControl(this.stock.categories.indexOf(this.categories[1]) !== -1),
           new FormControl(this.stock.categories.indexOf(this.categories[2]) !== -1)
-        ])
+        ], this.categoriesSelectValidator)
       }
     );
+  }
+
+  categoriesSelectValidator(control: FormArray) {
+    let valid = false;
+    control.controls.forEach(control => {
+      if(control.value) {
+        valid = true;
+      }
+    });
+    
+    return valid ? null : {categoriesLength: true};
   }
 
   cancle() {
