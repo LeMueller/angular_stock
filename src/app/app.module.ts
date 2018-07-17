@@ -16,6 +16,7 @@ import { StockFormComponent } from './stock/stock-form/stock-form.component';
 import { StockService } from './stock/stock.service';
 import { StockFilterPipe } from './stock/stock-filter.pipe';
 import { HttpModule } from '@angular/http';
+import { SocketService } from './header/socket.service';
 
 // 加入路由
 const routeConfig: Routes = [
@@ -51,6 +52,7 @@ const routeConfig: Routes = [
   ],
   providers: [
     StockService,
+    SocketService
   ],
   // 模块入口组件
   bootstrap: [AppComponent]
