@@ -13,7 +13,7 @@ export class StockFormComponent implements OnInit {
 
   formModel: FormGroup;
 
-  stock: Stock;
+  stock: Stock = new Stock(0, "", 0, 0, "", []);
 
   categories = ['IT', 'Cloud', 'UI'];
 
@@ -25,21 +25,42 @@ export class StockFormComponent implements OnInit {
 
   ngOnInit() {
     let stockId = this.routeInfo.snapshot.params['id'];
-    this.stock = this.stockService.getStock(stockId);
 
+    // 要解决异步的问题，当我调出页面，发出请求时，页面需要的数据还没有回来，如this.stock.name，就会出现undefined的情况.
+    // 先把所有值设为空
     let fb = new FormBuilder();
     this.formModel = fb.group(
       {
-        name: [this.stock.name, [Validators.required, Validators.minLength(3)]],
-        price: [this.stock.price, [Validators.required]],
-        desc: [this.stock.desc],
+        name: ['', [Validators.required, Validators.minLength(3)]],
+        price: ['', [Validators.required]],
+        desc: [''],
         categories: fb.array([
-          new FormControl(this.stock.categories.indexOf(this.categories[0]) !== -1),
-          new FormControl(this.stock.categories.indexOf(this.categories[1]) !== -1),
-          new FormControl(this.stock.categories.indexOf(this.categories[2]) !== -1)
+          new FormControl(false),
+          new FormControl(false),
+          new FormControl(false)
         ], this.categoriesSelectValidator)
       }
     );
+
+    // 当拿到值了，再用拿到的值重置formModel
+    this.stockService.getStock(stockId).subscribe(
+      data => {
+        this.stock = data;
+        this.formModel.reset({
+          name: data.name,
+          price: data.price,
+          desc: data.desc,
+          categoreis: [
+            data.categories.indexOf(this.categories[0]) != -1,
+            data.categories.indexOf(this.categories[1]) != -1,
+            data.categories.indexOf(this.categories[2]) != -1,
+            
+          ]
+        })
+      }
+    );
+
+    
   }
 
   categoriesSelectValidator(control: FormArray) {

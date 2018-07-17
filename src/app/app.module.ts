@@ -15,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { StockFormComponent } from './stock/stock-form/stock-form.component';
 import { StockService } from './stock/stock.service';
 import { StockFilterPipe } from './stock/stock-filter.pipe';
+import { HttpModule } from '@angular/http';
 
 // 加入路由
 const routeConfig: Routes = [
@@ -45,7 +46,7 @@ const routeConfig: Routes = [
     // FormsModule 是 ReactiveFormsModule 的前提
     FormsModule,
     ReactiveFormsModule,
-    // HttpModule,
+    HttpModule,
     RouterModule.forRoot(routeConfig),
   ],
   providers: [
